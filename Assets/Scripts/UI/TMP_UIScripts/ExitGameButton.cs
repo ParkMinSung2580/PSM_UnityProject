@@ -14,7 +14,6 @@ public class ExitGameButton : MonoBehaviour
 
     void OnExitGameButtonClicked()
     {
-        //TODO - 게임 종료 구현되면 게임종료 함수 호출 쓰기
         Debug.Log(exitGameButton);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
