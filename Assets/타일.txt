@@ -1,0 +1,5 @@
+-특정 타일에 기능을 추가 하고 싶다
+
+전체 타일에 충돌 적용	Tilemap Collider 2D + (선택적으로 Composite Collider 2D)
+특정 타일에만 충돌	커스텀 타일에서 Collider 포함된 GameObject를 생성
+타일 자체에 Collider 붙이기	❌ 불가능 (ScriptableObject는 컴포넌트 불가)
