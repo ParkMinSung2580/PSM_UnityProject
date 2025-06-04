@@ -12,7 +12,7 @@ public class FallSpike : Obstacle
     private PolygonCollider2D collider;
 
     public Vector2 moveDirection = Vector2.down;
-    public float moveDistance = 10f;
+    public float layDistance = 10f; //감지범위
 
     [SerializeField] private LayerMask targetLayer;     //player
 
@@ -24,8 +24,8 @@ public class FallSpike : Obstacle
     }
     void FixedUpdate()
     {
-        Debug.DrawRay(transform.position, moveDirection * moveDistance, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10f, targetLayer);
+        Debug.DrawRay(transform.position, moveDirection * layDistance, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, layDistance, targetLayer);
         if(hit.collider != null)
         {
             isFalling = true;

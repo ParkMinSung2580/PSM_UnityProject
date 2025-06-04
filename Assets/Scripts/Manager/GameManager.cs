@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameObject player;
-    public Vector2 _lastPlayerPosition;
+    public Vector2 _lastPlayerPosition; 
     
     //게임매니저 싱글톤 생성
     private void Awake()
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     //시작
     private void Start()
     {
+        _lastPlayerPosition = new Vector2(-8.366f, 4.52f); //초기세팅값
         //시작
         //MySceneManager.Instance.SetCurrentScene(new TitleScene());
     }
@@ -37,9 +38,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && MySceneManager.Instance.GetCurrentSceneName() == MyScene.InGame)
         {
             Debug.Log("인게임중 r키 활성화");
-            player = GameObject.Find("Player");
-            player.transform.position = _lastPlayerPosition;
-            
+            MySceneManager.Instance.LoadScene("InGame");
         }
 
         if (Input.GetKeyDown(KeyCode.A))

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 103539927548899696}
   - component: {fileID: 553890596265424689}
   m_Layer: 0
-  m_Name: 'FallSpike '
+  m_Name: FallSpike
   m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,6 +177,8 @@ MonoBehaviour:
   fallSpeed: 5
   isFalling: 0
   rb: {fileID: 0}
+  moveDirection: {x: 0, y: 1}
+  moveDistance: 10
   targetLayer:
     serializedVersion: 2
     m_Bits: 512

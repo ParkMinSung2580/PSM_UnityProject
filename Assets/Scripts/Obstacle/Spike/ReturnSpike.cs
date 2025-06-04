@@ -10,7 +10,9 @@ public class ReturnSpike : Obstacle
 
     [Header("스파이크 이동 설정")] // 인스펙터에 헤더 추가 (선택 사항)
     public Vector2 moveDirection;   //방향값
-    public float moveDistance = 5f; //카메라 화면 밖까지 이동 하게 //추후 특정 y좌표까지 떨어지게 구성
+    public float moveDistance = 5f; //플레이어 감지 범위
+
+    //카메라 화면 밖까지 이동 하게 //추후 특정 y좌표까지 떨어지게 구성 
 
     [SerializeField] private LayerMask targetLayer;     //player
 
@@ -30,7 +32,7 @@ public class ReturnSpike : Obstacle
     {
         //TODO - 방향 수정 필요 
         Debug.DrawRay(transform.position, moveDirection * moveDistance, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection.normalized, 10f, targetLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection.normalized, moveDistance, targetLayer);
 
         if(hit && !isMoving)
         {
