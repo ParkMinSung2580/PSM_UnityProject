@@ -42,6 +42,7 @@ public class FallSpike1 : Obstacle
             StartMovingUp();
         }
 
+        //문제하나 더 발견 collider 이 안변함 -> localscale을 변경해주어야함
         switch (currentState)
         {
             case SpikeState.Idle:
@@ -58,7 +59,8 @@ public class FallSpike1 : Obstacle
                 if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
                 {
                     transform.position = targetPosition; // 정확히 목표 위치로 설정
-                    sr.flipY = !sr.flipY;
+                    //sr.flipY = !sr.flipY;
+                    transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
                     currentState = SpikeState.Idle; // 상태를 Idle로 변경
                     isMoving = false;
                     Debug.Log(gameObject.name + " 스파이크가 목표 지점에 도달했습니다.");
@@ -76,7 +78,9 @@ public class FallSpike1 : Obstacle
                 {
                     transform.position = initialPosition; // 정확히 초기 위치로 설정
                     currentState = SpikeState.Idle; // 상태를 Idle로 변경
-                    sr.flipY = !sr.flipY;
+                    //filpY를 변경
+                    //sr.flipY = !sr.flipY;
+                    transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
                     isMoving = false;
                     Debug.Log(gameObject.name + " 스파이크가 초기 위치로 돌아왔습니다.");
                 }
