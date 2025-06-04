@@ -1,0 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum MyScene
+{
+    Unknown, //±‚∫ª
+    Title, // ≈∏¿Ã∆≤ æ¿
+    InGame, // ¿Œ∞‘¿” æ¿
+    Ending, // ø£µ˘ æ¿
+}
+
