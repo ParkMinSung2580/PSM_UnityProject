@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //현재 스크립트에서는 내가 원하는 방향이 아니라 위에서 아래로만 떨어지도록 구현이되어 있다
-public class FallSpike1 : Obstacle
+public class ReturnSpike : Obstacle
 {
     public SpriteRenderer sr;
     public float _moveSpeed = 10f; // 스파이크가 떨어지는 속도
@@ -29,7 +29,7 @@ public class FallSpike1 : Obstacle
     void FixedUpdate()
     {
         //TODO - 방향 수정 필요 
-        Debug.DrawRay(transform.position, moveDirection * 10f, Color.red);
+        Debug.DrawRay(transform.position, moveDirection * moveDistance, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection.normalized, 10f, targetLayer);
 
         if(hit && !isMoving)

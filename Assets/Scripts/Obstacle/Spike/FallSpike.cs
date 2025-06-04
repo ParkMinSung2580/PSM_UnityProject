@@ -10,6 +10,10 @@ public class FallSpike : Obstacle
     public bool isFalling = false;
     public Rigidbody2D rb;
     private PolygonCollider2D collider;
+
+    public Vector2 moveDirection = Vector2.down;
+    public float moveDistance = 10f;
+
     [SerializeField] private LayerMask targetLayer;     //player
 
     private void Awake()
@@ -20,7 +24,7 @@ public class FallSpike : Obstacle
     }
     void FixedUpdate()
     {
-        Debug.DrawRay(transform.position, Vector2.down * 10f, Color.red);
+        Debug.DrawRay(transform.position, moveDirection * moveDistance, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10f, targetLayer);
         if(hit.collider != null)
         {
