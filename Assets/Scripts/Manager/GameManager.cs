@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("현재 씬 : " + MySceneManager.Instance.GetCurrentSceneName());
+        //Debug.Log("현재 씬 : " + MySceneManager.Instance.GetCurrentSceneName());
         //마지막으로 업데이트된 플레이어의 위치로 변경하고 LoadScene?
         //임시로 Title로 비교 나중에 inGame으로 변경후 구현
         if (Input.GetKeyDown(KeyCode.R) && MySceneManager.Instance.GetCurrentSceneName() == MyScene.InGame)
