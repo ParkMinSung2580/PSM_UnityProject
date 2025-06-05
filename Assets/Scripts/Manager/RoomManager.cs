@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//ObstableManager에서 float값 2개 전달 받을려니깐 함수 2개만들어야함 그냥 룸을 구조체로 두자
 public class RoomManager : MonoBehaviour
 {
     private Camera mainCamera;
-    private float roomWidth;  // 룸 가로 크기
-    private float roomHeight; // 룸 세로 크기
+    public float roomWidth;  // 룸 가로 크기
+    public float roomHeight; // 룸 세로 크기
 
     [Header("Current Room")]
     public Vector2 currentRoom;
@@ -14,13 +15,21 @@ public class RoomManager : MonoBehaviour
     [Header("Player")]
     public Transform player;
 
-    private void Start()
+    private void Awake()
     {
         //InitCamera
         mainCamera = Camera.main;
         //InitRoomSetting
         roomHeight = mainCamera.orthographicSize * 2f;
         roomWidth = roomHeight * mainCamera.aspect;
+    }
+
+    private void Start()
+    {
+        if (ObstacleManager.Instance != null)
+        {
+            ObstacleManager.Instance.SetRoomActive(currentRoom);
+        }
     }
 
     private void SetCameraToRoom(Vector2 roomPosition)
@@ -77,8 +86,17 @@ public class RoomManager : MonoBehaviour
     }
     private void TransitionToRoom(Vector2 newRoom)
     {
+        Vector2 previousRoom = currentRoom;
         currentRoom = newRoom;
         SetCameraToRoom(currentRoom);
+
+        // ObstacleManager에게 방이 바뀌었음을 알림
+        if (ObstacleManager.Instance != null)
+        {
+            ObstacleManager.Instance.SetRoomActive(currentRoom);
+        }
+
+        Debug.Log($"방이 {previousRoom}에서 {currentRoom}으로 변경되었습니다.");
     }
 }
 
