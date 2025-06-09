@@ -11,7 +11,7 @@ public class PlayerController1 : MonoBehaviour
 
     private bool isJumping;
 
-    private float coyoteTime = 0.15f;
+    private float coyoteTime = 0.5f;
     private float coyoteTimeCounter;
 
     private float jumpBufferTime = 0.2f;
@@ -33,13 +33,15 @@ public class PlayerController1 : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
+        //플레이어가 벽에 붙는 문제가 아직 존재
+
         //if    플레이어가 땅에 있으면 코요테 타임 리셋
         //else  플레이어가 공중에 있으면 감소
         if (IsGrounded())
         {
             coyoteTimeCounter = coyoteTime;
         }
-        else 
+        else
         {
             coyoteTimeCounter -= Time.deltaTime;
         }
@@ -62,7 +64,6 @@ public class PlayerController1 : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
 
             jumpBufferCounter = 0f;
-
             StartCoroutine(JumpCooldown());
         }
 
@@ -75,7 +76,7 @@ public class PlayerController1 : MonoBehaviour
 
         Flip();
         anim.SetBool("run", horizontal != 0);
-        anim.SetBool("grounded", IsGrounded());
+        anim.SetBool("grounded", IsGrounded()); //두번 호출 하는 것 보다 변수를 쓰는게 좋을 듯
     }
 
     private void FixedUpdate()
@@ -85,7 +86,20 @@ public class PlayerController1 : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        // 1차 : 일단 플레이어 밑에 레이쏴서 Ground레이어 총돌제가 없으면 return 있으면 2차 감지
+        RaycastHit2D rayHit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f, groundLayer);
+
+        if (rayHit.collider != null)
+        {
+            // 2차: OverlapCircle로 안정성 확보
+            return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        }
+        else
+        {
+            return false;
+        }
+        
+        //return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
     }
 
     private void Flip()
@@ -114,5 +128,15 @@ public class PlayerController1 : MonoBehaviour
     public bool IsFacingRight()
     {
         return isFacingRight;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.blue;
+            //Gizmos.DrawWireSphere(groundCheck.position, 0.03f);
+            Gizmos.DrawLine(groundCheck.transform.position, groundCheck.transform.position - new Vector3(0, 0.05f, 0));
+        }
     }
 }
